@@ -13,7 +13,3 @@ class Repeat
     n_times(@times) {block.call}
   end
 end
-
-n_times(3) {puts "Hello!"}
-do_three = Repeat.new(3)
-do_three.each {puts "Hooray!"}

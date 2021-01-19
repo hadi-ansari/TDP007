@@ -23,6 +23,3 @@ class Person
     @birthyear = Date.today.year - age
   end
 end
-
-p = Person.new("Gustav", "Eriksson", 24)
-puts p.birthyear

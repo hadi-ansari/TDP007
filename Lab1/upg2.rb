@@ -1,8 +1,7 @@
 def fac(n)
-  (1..n).inject {|total,x| total * x}
+  if n == 0
+    return 1
+  else
+    (1..n).inject {|total,x| total * x}
+  end
 end
-
-puts (1..3).inject {|total,x| total * x}
-puts (3..5).reduce(:*)
-
-puts fac(20)

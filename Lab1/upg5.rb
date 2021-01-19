@@ -5,7 +5,7 @@ class PersonName
   end
 
   def get_fullname()
-    "#{@surname} #{@name}"
+    "#{@name} #{@surname}"
   end
 
   def set_fullname(str)

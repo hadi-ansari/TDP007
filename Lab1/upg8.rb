@@ -8,6 +8,3 @@ class String
     temp.upcase
   end
 end
-
-puts "Laugh out loud".acronym
-puts "Do what I mean!!".acronym
