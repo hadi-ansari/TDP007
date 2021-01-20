@@ -6,19 +6,19 @@ class Person
     @age = age
     @birthyear = Date.today.year - age
     @name = PersonName.new
-    @name.set_fullname("#{name} #{surname}")
+    @name.fullname = "#{name} #{surname}"
   end
 
   attr_reader :age
   attr_reader :birthyear
   attr_reader :name
 
-  def set_birthyear(by)
+  def birthyear=(by)
     @birthyear = by
     @age = Date.today.year - by
   end
 
-  def set_age(age)
+  def age=(age)
     @age = age
     @birthyear = Date.today.year - age
   end

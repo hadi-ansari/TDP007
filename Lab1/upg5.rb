@@ -4,13 +4,17 @@ class PersonName
     @surname = ""
   end
 
-  def get_fullname()
-    "#{@name} #{@surname}"
+  def fullname()
+    return "#{@name} #{@surname}"
   end
 
-  def set_fullname(str)
-    k = str.split(" ")
+  def fullname=(rhs)
+    k = rhs.split(" ")
     @name = k[0]
     @surname = k[1]
   end
 end
+
+# if __FILE__ == $0
+  
+# end

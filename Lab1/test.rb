@@ -46,18 +46,15 @@ end
 class TestUpg5 < Test::Unit::TestCase
   def test_PersonName()
     p1 = PersonName.new()
-    fullname = p1.get_fullname()
-    assert_equal(" ", fullname)
+    assert_equal(" ", p1.fullname)
     
-    p1.set_fullname("Lonna Lindsay")
-    fullname = p1.get_fullname()
-    assert_equal("Lonna Lindsay", fullname)
+    p1.fullname = "Lonna Lindsay"
+    assert_equal("Lonna Lindsay", p1.fullname)
   end
   
   def test_empty_person()
     p1 = PersonName.new()
-    fullname = p1.get_fullname()
-    assert_equal(" ", fullname)
+    assert_equal(" ", p1.fullname)
   end
   
 end
@@ -65,31 +62,30 @@ end
 class TestUpg6 < Test::Unit::TestCase
   def test_empty_Person()
     p1 = Person.new()
-    fullname = p1.name.get_fullname()
-    assert_equal(" ", fullname)
+    assert_equal(" ", p1.name.fullname)
     assert_equal(0, p1.age)
     assert_equal(2021, p1.birthyear)
   end
   
   def test_Person()
     p1 = Person.new("Lonna", "Lindsay", 10)
-
-    assert_equal("Lonna Lindsay", p1.name.get_fullname())
+    assert_equal("Lonna Lindsay", p1.name.fullname)
     assert_equal(10, p1.age)
-    assert_equal(2011, p1.birthyear())
+    assert_equal(2011, p1.birthyear)
   end
 
    def test_change_age()
     p1 = Person.new("Lonna", "Lindsay", 10)
 
-    p1.set_age(21)
+    p1.age = 21
     assert_equal(2000, p1.birthyear)
+    assert_equal(21, p1.age)
    end
 
    def test_change_birthyear()
     p1 = Person.new("Lonna", "Lindsay", 10)
-
-    p1.set_birthyear(2000)
+    p1.birthyear = 2000
+    assert_equal(2000, p1.birthyear)
     assert_equal(21, p1.age)
    end
    
