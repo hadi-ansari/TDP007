@@ -15,7 +15,11 @@ end
 #Detta handlar nog mest om hur ni tolkat uppgiften
 #tag_names borde kanske bara vara en hjälpfunktion
 def tag_names(text)
-  return text.scan(/\<\w+[ \>]/).map { |e| e.gsub(/[^\w]/, "") }.uniq()
+  #scan ger en lista med alla matchningar
+  #börjar med < , bokstäver, slutar med " ", "\", eller ">"
+  #rensar bort dåliga tecken
+  #uniq tar bort dupliceringar
+  return text.scan(/\<\w+[ \>]/).map { |e| e.gsub(/[^\w]/, "") }.uniq() #en rad, bra eller dåligt
 end
 
 # test
