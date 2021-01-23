@@ -10,9 +10,7 @@ def football_report(file)
   end
   data_hash = data_hash.sort_by{|_key, value| value.abs}
   puts "Least GD (goal difference): " + data_hash[0][0] + ", " + data_hash[0][1].to_s + "\n\n"
-  puts "Goal difference ranking (F - A)"
-  30.times {print "="}
-  puts ""
+  puts "Goal difference ranking (F - A)\n#{"="*"Goal difference ranking (F - A)".length}\n"
   data_hash = data_hash.sort_by(&:last).reverse
   for pair in data_hash
     puts "#{pair[0]}" + ", " + "#{pair[1]}"
