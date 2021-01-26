@@ -1,37 +1,50 @@
 require "rexml/document"
 
+class Event
+  def initialize()
+    @event_hash = Hash.new
+  end
+
+  def add_field(key, value)
+    @event_hash[key] = value
+  end
+  
+  def to_s
+    str = ""
+    @event_hash.each do |key, value|
+      str += "#{key}: #{value}\n"
+    end
+    return str
+  end
+  
+end
+
 def xhtml_read(website)
   src = File.open website
   doc = REXML::Document.new src
   event_list = Array.new
   #Pontus exemple
   #events = doc.get_elements("//div[@class='vevent']/*|//span[@class='vevent']/*")
-  doc.elements.each("//div[@class='vevent']") do |event|
-    event_hash = Hash.new
-    event_hash["name"] = event.elements[".//span[@class='summary']"].text
-    event_hash["dstart"] = event.elements[".//span[@class='dtstart']"].text
-    event_hash["location"] = ""
-    event.each_element(".//td[@class='location']//")  do |l|
-      if (l.has_text?) then
-        if (l.text.gsub(/\n/,'').strip) != ""
-          event_hash["location"] += " #{l.text.gsub(/\n/,'').strip}"
-        end
+  doc.elements.each("//div[@class='vevent']") do |element|
+    event = Event.new
+    event.add_field("Name", element.elements[".//span[@class='summary']"].text)
+    event.add_field("Date", element.elements[".//span[@class='dtstart']"].text)
+    location = ""
+    element.each_element(".//td[@class='location']//")  do |l|
+      if (l.has_text?) && (l.text.gsub(/\n/,'').strip != "")
+        location += "#{l.text}, "
       end
     end
-    event.each_element(".//td[@class='description']") do |l|
-      event_hash["description"] = l.elements[1].text
-    end
-    event.each_element(".//a[@class='userLink ']") do |l|
-      event_hash["Posted by"] = l.text
-    end
+    event.add_field("Location", location[0...-2])
+    event.add_field("Description", element.elements[".//td[@class='description']/p"].text)
+    event.add_field("Posted by", element.elements[".//a[@class='userLink ']"].text)
     
-    event_list << event_hash
+    event_list << event
   end
 
-  #Print events
-  for i in (0...event_list.size)
-    puts "Event #{i+1}\n#{"="*8}\nDate: #{event_list[i]["dstart"]}\nName: #{event_list[i]["name"]}\nLocation: #{event_list[i]["location"]}\nDescription: #{event_list[i]["description"]}\nPosted by: #{event_list[i]["Posted by"]}\n\n"
-
+  #print evens
+  for e in (0...event_list.size)
+    puts "Event #{e + 1}\n#{"="*8}\n#{event_list[e]}\n"
   end
 end
 
