@@ -16,11 +16,4 @@ def xhtml_read(website)
   puts event_list
 end
 
-def print_tree(elem, indent=0)
-elem.elements.each do |subelem|
-puts " "*2*indent + subelem.name
-print_tree(subelem, indent+1)
-end
-end
-
 xhtml_read("events.html")
