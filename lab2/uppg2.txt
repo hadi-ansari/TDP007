@@ -1,0 +1,26 @@
+require "rexml/document"
+
+def xhtml_read(website)
+  src = File.open website
+  doc = REXML::Document.new src
+  event_list = Array.new
+  #r = doc.root
+  #doc.elements.each("/html/body/table") { |n| puts n.text }
+  events = doc.elements.each("//div[@class='vevent']/*") {} #varför behöver vi ett block?
+  events.each do |event|
+    event_hash = Hash.new
+    event_hash["name"] = event.elements["//span[@class='summary']"].text
+    event_hash["dstart"] = event.elements["//[@class='dtstart']"].text
+    event_list << event_hash
+  end
+  puts event_list
+end
+
+def print_tree(elem, indent=0)
+elem.elements.each do |subelem|
+puts " "*2*indent + subelem.name
+print_tree(subelem, indent+1)
+end
+end
+
+xhtml_read("events.html")
