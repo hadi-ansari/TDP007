@@ -27,21 +27,6 @@ def least_diff(array)
   return array.min_by {|data| (data[:data1] - data[:data2]).abs}
 end
 
-#--Part 1----------------------------------------------------------------------
-#--Football
-str = File.new("football.txt").read
-re = /([a-zA-z]+).+\s(\d+)\s+-\s+(\d+).+/
-sorted = data_diff_sort(data_fetcher(str, re))
-counter = 1
-for team in sorted
-  puts "#{counter}: #{team[:identifier]} F: #{team[:data1]} A: #{team[:data2]}"
-  counter += 1
-end
-least_diff_team = least_diff(data_fetcher(str, re))
-puts "\nLeast diff: #{least_diff_team[:identifier]} #{least_diff_team[:data1]} #{least_diff_team[:data2]}\n\n"
-
-#--Part 2-------------------------------------------------------------------------------------
-#--Weather
 def suffix_check(int)
   if int == "1"
     suffix = "st"
@@ -54,10 +39,27 @@ def suffix_check(int)
   end
   return suffix
 end
+if __FILE__ == $0
+  #--Part 1----------------------------------------------------------------------
+  #--Football
+  str = File.new("football.txt").read
+  re = /([a-zA-z]+).+\s(\d+)\s+-\s+(\d+).+/
+  sorted = data_diff_sort(data_fetcher(str, re))
+  counter = 1
+  for team in sorted
+    puts "#{counter}: #{team[:identifier]} F: #{team[:data1]} A: #{team[:data2]}"
+    counter += 1
+  end
+  least_diff_team = least_diff(data_fetcher(str, re))
+  puts "\nLeast diff: #{least_diff_team[:identifier]} #{least_diff_team[:data1]} #{least_diff_team[:data2]}\n\n"
 
-str = File.new("weather.txt").read
-re = /^\s+(\d{1,2})\s+(\d{1,2})\*?\s+(\d{1,2}).+\n/
-sorted = data_diff_sort(data_fetcher(str, re))
-puts sorted.collect {|day| "#{day[:identifier]}#{suffix_check(day[:identifier])} MxT: #{day[:data1]} MnT: #{day[:data2]}"}
-least_diff_temp = least_diff(data_fetcher(str, re))
-puts "\nLeast diff: #{least_diff_temp[:identifier]}#{suffix_check(least_diff_temp[:identifier])} MxT: #{least_diff_temp[:data1]} MnT: #{least_diff_temp[:data2]}"
+  #--Part 2-------------------------------------------------------------------------------------
+  #--Weather
+
+  str = File.new("weather.txt").read
+  re = /^\s+(\d{1,2})\s+(\d{1,2})\*?\s+(\d{1,2}).+\n/
+  sorted = data_diff_sort(data_fetcher(str, re))
+  puts sorted.collect {|day| "#{day[:identifier]}#{suffix_check(day[:identifier])} MxT: #{day[:data1]} MnT: #{day[:data2]}"}
+  least_diff_temp = least_diff(data_fetcher(str, re))
+  puts "\nLeast diff: #{least_diff_temp[:identifier]}#{suffix_check(least_diff_temp[:identifier])} MxT: #{least_diff_temp[:data1]} MnT: #{least_diff_temp[:data2]}"
+end
