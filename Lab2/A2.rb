@@ -22,6 +22,8 @@ def xhtml_read(website)
   src = File.open website
   doc = REXML::Document.new src
   event_list = Array.new
+  #Pontus exemple
+  #events = doc.get_elements("//div[@class='vevent']/*|//span[@class='vevent']/*")
   doc.elements.each("//div[@class='vevent']") do |element|
     event = Event.new
     event.add_field("Name", element.elements[".//span[@class='summary']"].text)
@@ -57,3 +59,4 @@ end
 end
 
 #print_events(xhtml_read("events.html"))
+
