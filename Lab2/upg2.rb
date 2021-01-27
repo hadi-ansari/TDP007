@@ -1,6 +1,7 @@
 require "rexml/document"
 
 class Event
+  attr_reader :event_hash
   def initialize()
     @event_hash = Hash.new
   end
