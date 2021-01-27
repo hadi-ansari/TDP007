@@ -16,7 +16,6 @@ class Event
     end
     return str
   end
-  
 end
 
 def xhtml_read(website)
@@ -30,22 +29,34 @@ def xhtml_read(website)
     event.add_field("Name", element.elements[".//span[@class='summary']"].text)
     event.add_field("Date", element.elements[".//span[@class='dtstart']"].text)
     location = ""
-    element.each_element(".//td[@class='location']//")  do |l|
+    element.elements.each(".//td[@class='location']//")  do |l|
       if (l.has_text?) && (l.text.gsub(/\n/,'').strip != "")
         location += "#{l.text}, "
       end
     end
     event.add_field("Location", location[0...-2])
+    
     event.add_field("Description", element.elements[".//td[@class='description']/p"].text)
     event.add_field("Posted by", element.elements[".//a[@class='userLink ']"].text)
     
+    #website
+    website_element = element.elements[".//td/a[@target='_NEW']"]
+    if website_element
+      event.add_field("Website", website_element.text)
+    end
+    
     event_list << event
   end
-
-  #print evens
-  for e in (0...event_list.size)
-    puts "Event #{e + 1}\n#{"="*8}\n#{event_list[e]}\n"
-  end
+  
+ return event_list
 end
 
-xhtml_read("events.html")
+def print_events(event_list)
+  for e in (0...event_list.size)
+  puts "Event #{e + 1}\n#{"="*8}\n#{event_list[e]}\n"
+end
+
+end
+
+print_events(xhtml_read("events.html"))
+
