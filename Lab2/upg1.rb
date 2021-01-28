@@ -9,7 +9,7 @@
 #   end
 # end
 
-def data_fetcher(str, re)
+def data_fetcher(str, re) # Extraherar data ur en sträng med ett regexuttryck
   array = []
   #re = /(?<identifier>[a-zA-z]+).+\s(?<data1>\d+)\s+-\s+(?<data2>\d+).+/
   matches = str.scan(re)
@@ -27,7 +27,7 @@ def least_diff(array)
   return array.min_by {|data| (data[:data1] - data[:data2]).abs}
 end
 
-def suffix_check(int)
+def suffix_check(int) # Returnerar lämpligt suffix baserat på integer
   if int == "1"
     suffix = "st"
   elsif int == "2"
