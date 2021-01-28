@@ -24,9 +24,12 @@ class TestUppgift1b < Test::Unit::TestCase
         file.close()
         assert_equal("14", lowest_temp_diff(file_data))
         assert_equal("14,15,13,24,12,2,7,28,4,25,27,6,10,16,19,8,3,23,29,5,17,22,20,21,1,18,11,30,9,", diff_list_table(file_data))
+        #Hur lång är listan? Var är dag 26?
+        #Antingen overkill att räkna ordningen för hand, eller så har de tagit svaret från sin funktion
+        #Valde ni medvetet bort temp* ?
+        #Blackbox vs Whitebox, vad förväntar vi oss för resultat
     end
 
 
 
 end
-
