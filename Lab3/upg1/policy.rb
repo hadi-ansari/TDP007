@@ -20,7 +20,6 @@ gender_policy
 M 1
 F 1
 age_policy
-range18_to_20 2
 range18_to_20 2.5
 range21_to_23 3
 range24_to_26 3.5
