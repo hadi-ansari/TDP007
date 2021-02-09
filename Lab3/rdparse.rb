@@ -321,7 +321,7 @@ class LogicExpr
       #set a true
       #set b a
       rule :assign do
-        match('(', 'set', :var, :expr, ')') {|_, _, a, b, _| a = b}
+        match('(', 'set', :var, :expr, ')') {|_, _, a, b, _| @vars[a] = b}
         #true verkar inte matcha :expr här
       end
 
@@ -335,11 +335,12 @@ class LogicExpr
       rule :term do
         match('true') { true }
         match('false') { false }
-        match(:var)
+        match(:var) { |a| @vars[a] }
       end
+      #(set x true)
 
       rule :var do
-        match(String) {|a| @vars[a] }
+        match(String) {|a| a }
       end
 
     end
