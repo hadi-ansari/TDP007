@@ -1,0 +1,53 @@
+Kommentarer:
+UPG1:
+# Vad händer om personen äger en Audi? Börjar på A
+# Man måste skriva över personen innan utvärdering, eftersom poängen sparas i personen.
+Hade kanske räckt med en lokal variabel i funktionen
+# Hash istället för medlemsvariabler + lista?
+# Samlat regexuttryck
+
+UPG2:
+
+
+Utvecklingsblogg Seminarie 3
+
+
+Uppgift 1
+
+
+Skriv irb följt av load “upg1.rb” och använd sen samma kommandostruktur som i uppgiftsexemplet (T.ex kalle=Person.new("Volvo","58435",2,"M",32) och kalle.evaluate_policy("policy.rb") ). Det finns också en policy2.rb som också kan användas i evaluate_policy istället för den första filen.
+
+
+För denna uppgiften valde vi att hålla oss till de exempel på poäng och funktionsnamn som gavs i uppgiftens beskrivning
+
+
+Tolkning
+Eftersom vi följde exemplet så pass nära fanns det inte så värst mycket utrumme för egen tolkning. Dock gjorde vi antagandet att de två speciella reglerna som gavs i uppgiften var obligatoriska att ha med, medan namn/poäng-kombinationerna i policy-filen kunde justeras (även om vi inte valde att göra det).
+
+
+Tekniker
+Den inlästa informationen i konstruktorn sparas i en array. Denna jämförs sedan mot varje regel i policy-filen och eventuella poäng läggs till på totalevärdet. Dock görs vissa kontroller av det första tecknet i varje rad. Detta är på grund av att vi inte kunde ha namn i policyfilen som börjar med en siffra. Istället sätter vi en bokstav framför varje sådan kategori (detta är varför ett “P_” läggs till framför det inmatade postnummret), och använder sen regex för att få ut intervallet för ålder eller körkortslängd och ge poäng enligt det.
+
+
+Lätt & Svårt
+Överlag gick uppgiften väldigt smidigt framåt, det enda som saktade ner oss var problemen med siffror i policy-namnen. Vi spenderade en del tid på att söka efter en bra lösning till detta men lyckades inte hitta något annat än den vi använde.
+
+
+Uppgift 2
+
+
+Kör irb och skriv load “rdparse.rb” följt av Language.new.input för att starta inläsningen.
+
+Vi valde att hålla oss till strukturen i specifikationen så nära som möjligt, och att sedan utöka den med resten av funktionaliteten. Alltså använde vi samma namn, operatorer, och ordning på regler (Det visade sig sen att detta var obligatoriskt ändå). Vi tog mycket inspiration från DiceRoller-klassen i hur vi gjorde vår egen uppgift. Till exempel så använder vi i grunden samma lösning för inmatning och utskrivning i terminalen, och våra regler följer en liknande struktur. Den inkluderade parsen lämnade vi helt orörd.
+
+
+Tolkning
+Vi tolkade uppgiften som att variabler och operatorer enbart skulle behöva hantera två värden, true och false. De är därmed inte byggda för att hantera siffror eller strängar. Vi antog också att inmatning alltid sker utan ogiltliga karaktärer, d.v.s att användaren följer rätt syntax och endast använder värdena true eller false.
+
+
+Tekniker
+Vi skapade våra regler enligt uppgiftens specifikation, med några tillagda matchningar i :ASSIGN och :VAR för resten av funktionaliteten. För operatorerna använde vi kort och enkel kod i blocken för jämförelserna.  För att spara variabler använde vi oss av en hash map som innehåller varje skapad variabel och dess värde. Den uppdaterar värdet på en variabel ifall det ändras.
+
+
+Lätt & Svårt
+Hanteringen av variabler vad definitivt det svåraste med uppgiften. Att tilldela en variabel var inget problem, men att se till att den faktiskt sparades och kunde användas av operatorerna var en utmaning. Vår lösning på det tog en relativt lång tid att komma fram till, även om den egentligen är rätt så enkel. Att strukturera reglerna var å andra sidan mycket lätt eftersom de redan beskrevs i uppgiften och tack vare att vi hade färdiga exempel i DiceRoller.

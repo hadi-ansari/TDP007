@@ -8,11 +8,14 @@ class Person
         @age = age
         @points = 0
         @header_list = [@car, @postnumber, @d_amount_years, @sex, @age]
-        
+        #Hade det varit bättre att spara direkt till en hash? Känns som det kan
+        #bli problem om man har datan på två ställen.
+
     end
-  
+
     def evaluate_policy(file)
         self.instance_eval(File.read(file))
+        #
 
         # Specialfall 1
         if @d_amount_years < 3 && @sex == "M"
@@ -29,17 +32,19 @@ class Person
         end
         @points.round(2)
     end
-    
+
     def method_missing(name,*args)
 
         # Körkort antal år
         if name[0].to_s == "Y"
             max_y = name.match(/to([0-9]{1,2})/)[1].to_i
             min_y = name.match(/Y_([0-9]{1,2})/)[1].to_i
+            #Kunde ha gjort ett regexuttryck och plockat ut grupp 1 och 2
             if @d_amount_years >= min_y && @d_amount_years <= max_y
                 @points += args[0]
             end
         end
+        #Vad händer om personen äger en Audi?
         if name[0].to_s == "A"
             max_y = name.match(/to([0-9]{1,2})/)[1].to_i
             min_y = name.match(/A_([0-9]{1,2})/)[1].to_i
@@ -54,5 +59,5 @@ class Person
         end
 
     end
-  
+
 end
